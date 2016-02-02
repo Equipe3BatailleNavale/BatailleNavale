@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -17,14 +18,15 @@ public class FenetrePrincipal extends JFrame {
 	JPanel pan = new JPanel();
 	JButton boutonJouer = new JButton("Jouer");
 	JButton boutonRegles = new JButton ("Regles");
-	JButton boutonAPropos = new JButton("A Propos");
-	JButton commentJouer = new JButton("Comment Jouer");
+	JPanel panneauJeu = new JPanel();
+	
+	
 	
 
 	public FenetrePrincipal(){
 		setTitle("Bataille Navale"); // Titre de la fenetre
 		
-		setSize(400, 600);	// Definit la taille de la fenetre
+		setSize(600, 600);	// Definit la taille de la fenetre
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		// Supprime la fenetre de la memoire lorsqu'elle est fermee
 		
@@ -34,10 +36,6 @@ public class FenetrePrincipal extends JFrame {
         
         pan.add(boutonRegles);	// Ajoute le bouton regles au panneau
         
-        pan.add(boutonAPropos);
-        
-        pan.add(commentJouer);
-        
         pan.setBackground(Color.LIGHT_GRAY);	// Met le fond de la fenetre en gris
         
         ListenerBoutonJouer listenerJouer = new ListenerBoutonJouer();
@@ -46,8 +44,6 @@ public class FenetrePrincipal extends JFrame {
         ListenerBoutonRegles listenerRegles = new ListenerBoutonRegles();
         boutonRegles.addActionListener(listenerRegles);
         
-        ListenerBoutonCommentJouer listenerCommentJouer = new ListenerBoutonCommentJouer();
-        commentJouer.addActionListener(listenerCommentJouer);
         
         
         setContentPane(pan);
@@ -61,7 +57,7 @@ class ListenerBoutonJouer implements ActionListener {
 		
 		public void actionPerformed (ActionEvent clic) {
 		
-	
+			
 			
 		}
 }
