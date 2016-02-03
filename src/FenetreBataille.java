@@ -13,7 +13,7 @@ public class FenetreBataille /*extends JFrame*/{
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		Plateau p1 = new Plateau();
+		Plateau p1 = new Plateau(4);
 		p1.AfficherPlateau();
 		
 		for (Bateau bateau : p1.GetListeBateau()) {
@@ -30,7 +30,7 @@ public class FenetreBataille /*extends JFrame*/{
 			String sens = sc.nextLine();
 			bateau.setSensBateau(sens);
 			
-			p1.PlacerBateau(x, y, sens, bateau.getTailleBat());
+			p1.PlacerBateau(y, x, sens, bateau.getTailleBat());
 			p1.AfficherPlateau();
 		}
 			

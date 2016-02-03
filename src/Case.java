@@ -21,6 +21,7 @@ public class Case {
 	 * @return
 	 */
 	public boolean estTouche(){
+		caseTouche = true;
 		return caseTouche;
 	}
 	/** 
@@ -29,6 +30,10 @@ public class Case {
 	 */
 	public int getEtatCase(){
 		return etatCase;
+	}
+	
+	public boolean getCaseToucher(){
+		return caseTouche;
 	}
 	
 	public void setEtatCase(int etatCase){

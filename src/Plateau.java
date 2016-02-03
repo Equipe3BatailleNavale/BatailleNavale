@@ -1,13 +1,16 @@
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 public class Plateau {
 	
-	
-	private Case cases[][] = new Case[4][4];
+	private int taille = 4;
+	private Case cases[][] = new Case[taille][taille];
 	private Bateau flottes[] = new Bateau[1];
 
-	public Plateau() {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
+	public Plateau(int taille) {
+		this.taille = taille;
+		
+		for (int i = 0; i < taille; i++) {
+			for (int j = 0; j < taille; j++) {
 				cases[i][j] = new Case(i, j);
 			}
 		}
@@ -52,13 +55,13 @@ public class Plateau {
 			{
 				int caseLibre = 0;
 				for (int i = 0; i < flottes[k].getTailleBat(); i++) {
-					if (flottes[k].getSensBateau().equals("h")) {
+					if (flottes[k].getSensBateau().toUpperCase().startsWith("H")){
 						if (cases[x][y + i].getEtatCase() == Case.VIDE) {
 							if (y + flottes[k].getTailleBat() <= 10) {
 								caseLibre++;
 							}
 						} 
-					} else if (flottes[k].getSensBateau().equals("v")) {
+					} else if (flottes[k].getSensBateau().toUpperCase().startsWith("V")) {
 						if (cases[x + i][y].getEtatCase() == Case.VIDE){
 							if (x + flottes[k].getTailleBat() <= 10) {
 								caseLibre++;
@@ -89,5 +92,17 @@ public class Plateau {
 	public Bateau[] GetListeBateau()
 	{
 		return flottes;
+	}
+	
+	public boolean VerifBateauDansPlateau(int x, int y, int taille, String sens)
+	{
+		if(x >= 0 && x < this.taille && y >= 0 && y < this.taille)
+		{
+			if(sens.toUpperCase().startsWith("v"))
+			{
+				
+			}
+		}
+		return true;
 	}
 }
