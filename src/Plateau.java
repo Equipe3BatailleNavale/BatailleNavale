@@ -110,6 +110,10 @@ public class Plateau {
 					if (bateau.getCase(i).getX() == x && (bateau.getCase(i).getY() == y)) 
 					{
 						bateau.bateauTouche();
+						if(bateau.estCoule())
+						{
+							System.out.println("Le bateau " + bateau.getNomBateau() + "est coulé");
+						}
 						//System.out.println(bateau.getNomBateau() + "est touché");
 					}
 				}
