@@ -38,7 +38,7 @@ public class Plateau {
 				}else if(cases[i][j].getEtatCase() == Case.TOUCHE){
 					System.out.print("  X  ");
 				}else if(cases[i][j].getEtatCase() == Case.MANQUE){
-					System.out.print("raté ");
+					System.out.print(" raté ");
 				}
 			}
 			System.out.println();
@@ -54,32 +54,32 @@ public class Plateau {
 			if(flottes[k].getTailleBat() == taille)
 			{
 				int caseLibre = 0;
-				for (int i = 0; i < flottes[k].getTailleBat(); i++) {
+				for (int i = 0; i < taille; i++) {
 					if (flottes[k].getSensBateau().toUpperCase().startsWith("H")){
-						if (cases[x][y + i].getEtatCase() == Case.VIDE) {
-							if (y + flottes[k].getTailleBat() <= 10) {
+						if (x + taille <= this.taille ) {
+							if (cases[y][x+i].getEtatCase() == Case.VIDE) {
 								caseLibre++;
 							}
 						} 
 					} else if (flottes[k].getSensBateau().toUpperCase().startsWith("V")) {
-						if (cases[x + i][y].getEtatCase() == Case.VIDE){
-							if (x + flottes[k].getTailleBat() <= 10) {
+						if (y + taille <= this.taille){
+							if (cases[y+i][x].getEtatCase() == Case.VIDE) {
 								caseLibre++;
 							}
 						} 
 					}
 				}
-				if (caseLibre == flottes[k].getTailleBat()) {
+				if (caseLibre == taille) {
 					placement = true;
 					System.out.println("Bateau bien placé");
 					
-					for (int i = 0; i < flottes[k].getTailleBat(); i++) {
+					for (int i = 0; i < taille; i++) {
 						if (flottes[k].getSensBateau().equals("h")) {
-							cases[x][y+i].setEtatCase(Case.OCCUPE);
-							flottes[k].setCase(i, cases[x][y+i]);
+							cases[y][x+i].setEtatCase(Case.OCCUPE);
+							flottes[k].setCase(i, cases[y][x+i]);
 						} else {
-							cases[x+i][y].setEtatCase(Case.OCCUPE);
-							flottes[k].setCase(i, cases[x+i][y]);
+							cases[y+i][x].setEtatCase(Case.OCCUPE);
+							flottes[k].setCase(i, cases[y+i][x]);
 						}
 					}
 				}
@@ -94,15 +94,33 @@ public class Plateau {
 		return flottes;
 	}
 	
-	public boolean VerifBateauDansPlateau(int x, int y, int taille, String sens)
+	public String Tir(int x, int y)
 	{
-		if(x >= 0 && x < this.taille && y >= 0 && y < this.taille)
+		if((x >= 0 && x <= this.taille) && (y <= 0 && y <= this.taille))
 		{
-			if(sens.toUpperCase().startsWith("v"))
+			if(cases[y][x].getEtatCase() == Case.VIDE)
 			{
-				
+				cases[y][x].setEtatCase(Case.MANQUE);
+				return "Dommage";
 			}
+		}else if(cases[y][x].getEtatCase() == Case.OCCUPE)
+		{
+			for (Bateau bateau : this.flottes) {
+				for (int i = 0; i < bateau.getTailleBat(); i++) {
+					if (bateau.getCase(i).getX() == x && (bateau.getCase(i).getY() == y)) 
+					{
+						bateau.bateauTouche();
+						//System.out.println(bateau.getNomBateau() + "est touché");
+					}
+				}
+			}
+			cases[y][x].setEtatCase(Case.TOUCHE);
+			return "Bien jouer !";
+		}else if(cases[x][y].getEtatCase() == Case.TOUCHE || cases[x][y].getEtatCase() == Case.MANQUE)
+		{
+			System.out.println("Vous avez déja tiré sur cette case");
+				
 		}
-		return true;
+		return "Coordonée déja saisie";
 	}
 }

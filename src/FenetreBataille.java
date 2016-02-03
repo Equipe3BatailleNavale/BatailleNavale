@@ -17,20 +17,44 @@ public class FenetreBataille /*extends JFrame*/{
 		p1.AfficherPlateau();
 		
 		for (Bateau bateau : p1.GetListeBateau()) {
+			boolean placementBateau = false;
 			
-			System.out.println("Saisir les coordonnes de placement du bateau de taille : ");
+			while (placementBateau == false) {
+				
+				System.out.println("Saisir les coordonnes de placement du bateau: " + bateau.getNomBateau());
+				System.out.println(" Saisir x : ");
+				int x = sc.nextInt();
+
+				System.out.println(" Saisir y : ");
+				int y = sc.nextInt();
+				System.out
+				.println(" Saisir le sens du bateau(h : horizontale / v : verticale)");
+				sc.nextLine();
+				String sens = sc.nextLine();
+				bateau.setSensBateau(sens);
+				
+				placementBateau = p1.PlacerBateau(x, y, sens, bateau.getTailleBat());
+				if(!placementBateau)
+				{
+					System.out.println("Le bateau dépasse le tableau veuillez entrer les bonnes coordonnées");
+				}
+				
+				p1.AfficherPlateau();
+				
+			}			
+		}
+		
+		for (int i = 0; i < 6; i++) {
+
+			System.out.println("Saisir les coordonnes de placement du tir: ");
 			System.out.println(" Saisir x : ");
 			int x = sc.nextInt();
 
 			System.out.println(" Saisir y : ");
 			int y = sc.nextInt();
-			System.out
-			.println(" Saisir le sens du bateau(h : horizontale / v : verticale)");
-			sc.nextLine();
-			String sens = sc.nextLine();
-			bateau.setSensBateau(sens);
 			
-			p1.PlacerBateau(y, x, sens, bateau.getTailleBat());
+			p1.Tir(x, y);
+			
 			p1.AfficherPlateau();
 		}
 			

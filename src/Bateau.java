@@ -16,7 +16,7 @@ public class Bateau {
 	public Bateau(int taille) {
 		this.tailleBat = taille;
 		cases = new Case[taille];
-		this.NomBateau = getNomBateau(taille);
+		setNomBateau(taille);
 	
 	}
 
@@ -80,32 +80,35 @@ public class Bateau {
 		return caseTouche;
 	}
 	
-	public String getNomBateau(int taille)
+	public String getNomBateau()
 	{
-		String Nom;
+		return this.NomBateau;
+	}
+	
+	public void setNomBateau(int taille)
+	{
 		switch (taille)
 		{
 		  case 2:
-		    Nom = "Torpilleur";
+		    this.NomBateau = "Torpilleur";
 		    break;
 
 		  case 3:
-			  Nom = "Contre-torpilleur";
+			  this.NomBateau = "Contre-torpilleur";
 		    break;
 
 		  case 4:
-		    Nom = "Croiseur";
+			  this.NomBateau = "Croiseur";
 		    break;
 		    
 		  case 5:
-			    Nom = "Porte-avion";
+			  this.NomBateau = "Porte-avion";
 			    break;
 
 		  default:
-		    Nom = "Navire non valide.";
+			  this.NomBateau = "Navire non valide.";
 
 		}
-		return Nom;
 	}
 
 }

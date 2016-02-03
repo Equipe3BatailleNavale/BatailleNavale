@@ -18,7 +18,7 @@ public class PlateauTest {
 	public void TestPlacerBateau() {
 		Plateau plateau = new Plateau(4);
 		
-		assertTrue(plateau.PlacerBateau(1, 0, "v", 3)); 
+		assertTrue(plateau.PlacerBateau(3, 0, "v", 3)); 
 	}
 
 }
