@@ -3,7 +3,7 @@ public class Bateau {
 	
 	private int tailleBat;
 	private String sensBateau;
-
+	private String NomBateau;
 	private int caseTouche;//compteur de case du bateau touché
 
 	private int x,y;
@@ -15,7 +15,8 @@ public class Bateau {
 	
 	public Bateau(int taille) {
 		this.tailleBat = taille;
-		cases = new Case[taille]; 
+		cases = new Case[taille];
+		this.NomBateau = getNomBateau(taille);
 	
 	}
 
@@ -48,7 +49,6 @@ public class Bateau {
 	 */
 	public void bateauTouche() {
 		caseTouche++;
-		System.out.println("Touche");
 	}
 	
 	
@@ -74,6 +74,38 @@ public class Bateau {
 	
 	public String getSensBateau(){
 		return sensBateau;
+	}
+	
+	public int getCaseToucher(){
+		return caseTouche;
+	}
+	
+	public String getNomBateau(int taille)
+	{
+		String Nom;
+		switch (taille)
+		{
+		  case 2:
+		    Nom = "Torpilleur";
+		    break;
+
+		  case 3:
+			  Nom = "Contre-torpilleur";
+		    break;
+
+		  case 4:
+		    Nom = "Croiseur";
+		    break;
+		    
+		  case 5:
+			    Nom = "Porte-avion";
+			    break;
+
+		  default:
+		    Nom = "Navire non valide.";
+
+		}
+		return Nom;
 	}
 
 }

@@ -57,7 +57,7 @@ class ListenerBoutonJouer implements ActionListener {
 		
 		public void actionPerformed (ActionEvent clic) {
 		
-			
+			new FenetreBataille();
 			
 		}
 }
