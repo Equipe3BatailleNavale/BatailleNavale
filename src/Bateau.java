@@ -15,7 +15,7 @@ public class Bateau {
 	
 	public Bateau(int taille) {
 		this.tailleBat = taille;
-		cases = new Case[taille];
+		this.cases = new Case[taille];
 		setNomBateau(taille);
 	
 	}
@@ -26,7 +26,7 @@ public class Bateau {
 	 * @return
 	 */
 	public Case getCase(int pos){
-		return cases[pos];
+		return this.cases[pos];
 	}
 	
 	/**
@@ -41,14 +41,14 @@ public class Bateau {
 
 	
 	public int getTailleBat(){
-		return tailleBat;
+		return this.tailleBat;
 	}
 
 	/**
 	 * Dans le cas ou une case du bateau est touche
 	 */
 	public void bateauTouche() {
-		caseTouche++;
+		this.caseTouche += 1;
 	}
 	
 	
@@ -57,7 +57,7 @@ public class Bateau {
 	 * @return
 	 */
 	public boolean estCoule(){
-		if(caseTouche == tailleBat){
+		if(this.caseTouche == this.tailleBat){
 			return true;
 		}
 		else{ return false;}

@@ -14,11 +14,4 @@ public class PlateauTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void TestPlacerBateau() {
-		Plateau plateau = new Plateau(4);
-		
-		assertTrue(plateau.PlacerBateau(3, 0, "v", 3)); 
-	}
-
 }

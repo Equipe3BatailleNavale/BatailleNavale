@@ -13,7 +13,7 @@ public class Case {
 		
 		this.x = x;
 		this.y = y;
-		etatCase = VIDE;
+		this.etatCase = VIDE;
 	}
 	
 	/**
@@ -21,31 +21,31 @@ public class Case {
 	 * @return
 	 */
 	public boolean estTouche(){
-		caseTouche = true;
-		return caseTouche;
+		this.caseTouche = true;
+		return this.caseTouche;
 	}
 	/** 
 	 * Permet de connaitre l'etat de la case
 	 * @return
 	 */
 	public int getEtatCase(){
-		return etatCase;
+		return this.etatCase;
 	}
 	
 	public boolean getCaseToucher(){
-		return caseTouche;
+		return this.caseTouche;
 	}
 	
 	public void setEtatCase(int etatCase){
 		this.etatCase = etatCase;
 	}
 	
-	public int getX(){
-		return x; 
+	public int getY(){
+		return this.x; 
 	}
 	
-	public int getY(){
-		return y; 
+	public int getX(){
+		return this.y; 
 	}
 
 }

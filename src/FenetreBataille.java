@@ -8,6 +8,7 @@ import javax.swing.JTextArea;
 import java.awt.Point;
 
 import java.util.Scanner;
+
 public class FenetreBataille /*extends JFrame*/{
 	
 	public static void main(String[] args) {
@@ -44,8 +45,7 @@ public class FenetreBataille /*extends JFrame*/{
 			}			
 		}
 		
-		for (int i = 0; i < 6; i++) {
-
+		while (!p1.getPartieGagne()) {
 			System.out.println("Saisir les coordonnes de placement du tir: ");
 			System.out.println(" Saisir x : ");
 			int x = sc.nextInt();
@@ -56,9 +56,9 @@ public class FenetreBataille /*extends JFrame*/{
 			p1.Tir(x, y);
 			
 			p1.AfficherPlateau();
+			
 		}
-			
-			
+		System.out.println("La partie est terminer! Bien jouer vous avez gagné");
 	}
 		
 //        super();
