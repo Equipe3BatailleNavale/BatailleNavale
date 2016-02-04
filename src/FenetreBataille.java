@@ -17,32 +17,39 @@ public class FenetreBataille /*extends JFrame*/{
 		Plateau p1 = new Plateau(10);
 		p1.AfficherPlateau();
 		
+		System.out.println("Voulez vous commencer une partie sans paramétrage y/n : ");
+		String PartieRapide = sc.nextLine();
+		
+		if(PartieRapide.toUpperCase().startsWith("N"))
+		{
 		for (Bateau bateau : p1.GetListeBateau()) {
 			boolean placementBateau = false;
-			
-			while (placementBateau == false) {
+				while (placementBateau == false) {
 				
-				System.out.println("Saisir les coordonnes de placement du bateau: " + bateau.getNomBateau());
-				System.out.println(" Saisir x : ");
-				int x = sc.nextInt();
-
-				System.out.println(" Saisir y : ");
-				int y = sc.nextInt();
-				System.out
-				.println(" Saisir le sens du bateau(h : horizontale / v : verticale)");
-				sc.nextLine();
-				String sens = sc.nextLine();
-				bateau.setSensBateau(sens);
-				
-				placementBateau = p1.PlacerBateau(x, y, bateau);
-				if(!placementBateau)
-				{
-					System.out.println("Le bateau dépasse le tableau veuillez entrer les bonnes coordonnées");
+					System.out.println("Saisir les coordonnes de placement du bateau: " + bateau.getNomBateau());
+					System.out.println(" Saisir x : ");
+					int x = sc.nextInt();
+	
+					System.out.println(" Saisir y : ");
+					int y = sc.nextInt();
+					System.out
+					.println(" Saisir le sens du bateau(h : horizontale / v : verticale)");
+					sc.nextLine();
+					String sens = sc.nextLine();
+					bateau.setSensBateau(sens);
+					
+					placementBateau = p1.PlacerBateau(x, y, bateau);
+					if(!placementBateau)
+					{
+						System.out.println("Le bateau dépasse le tableau veuillez entrer les bonnes coordonnées");
+					}
+					
+					p1.AfficherPlateau();
 				}
-				
-				p1.AfficherPlateau();
-				
 			}			
+		}else{
+			p1.PlacerBateauAleatoire();
+			p1.AfficherPlateau();
 		}
 		
 		while (!p1.getPartieGagne()) {

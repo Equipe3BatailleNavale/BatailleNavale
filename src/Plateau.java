@@ -108,6 +108,33 @@ public class Plateau {
 
 }
 	
+	public void PlacerBateauAleatoire()
+	{
+		int x = 0, y = 0, sensOrdi;
+		String sens;
+		
+		for (Bateau bateau : this.flottes) {
+			boolean placement = false;
+			
+			while (!placement) {
+				x =  0 + (int)(Math.random() * ((9 - 0) + 1));
+				y= 0 + (int)(Math.random() * ((9 - 0) + 1));
+				sensOrdi = 0 + (int)(Math.random() * ((1 - 0) + 1));
+				
+				if (sensOrdi == 0)
+				{
+					sens = "h";
+				}
+				else {
+					sens = "v";
+				}
+				bateau.setSensBateau(sens);
+				
+				placement = PlacerBateau(x, y, bateau);	
+			}
+		}
+	}
+	
 	public Bateau[] GetListeBateau()
 	{
 		return flottes;
