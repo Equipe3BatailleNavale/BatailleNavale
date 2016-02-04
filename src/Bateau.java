@@ -104,7 +104,11 @@ public class Bateau {
 		  case 5:
 			  this.NomBateau = "Porte-avion";
 			    break;
-
+			    
+		  case 6:
+			  this.NomBateau = "Tank";
+			  break;
+			  
 		  default:
 			  this.NomBateau = "Navire non valide.";
 

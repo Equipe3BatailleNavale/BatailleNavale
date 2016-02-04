@@ -14,7 +14,7 @@ public class FenetreBataille /*extends JFrame*/{
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		Plateau p1 = new Plateau(4);
+		Plateau p1 = new Plateau(10);
 		p1.AfficherPlateau();
 		
 		for (Bateau bateau : p1.GetListeBateau()) {
@@ -34,7 +34,7 @@ public class FenetreBataille /*extends JFrame*/{
 				String sens = sc.nextLine();
 				bateau.setSensBateau(sens);
 				
-				placementBateau = p1.PlacerBateau(x, y, sens, bateau.getTailleBat());
+				placementBateau = p1.PlacerBateau(x, y, bateau);
 				if(!placementBateau)
 				{
 					System.out.println("Le bateau dépasse le tableau veuillez entrer les bonnes coordonnées");

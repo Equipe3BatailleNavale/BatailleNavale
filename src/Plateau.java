@@ -2,25 +2,29 @@ import javax.swing.text.StyledEditorKit.BoldAction;
 
 public class Plateau {
 	
-	private int taille = 4;
-	private Case cases[][] = new Case[taille][taille];
-	private Bateau flottes[] = new Bateau[1];
+	private int taille = 0;
+	private Case cases[][];
+	private Bateau flottes[] = new Bateau[5];
 	private boolean win = false;
 	private int nbBateauxCoule = 0;
 
 	public Plateau(int taille) {
 		this.taille = taille;
 		
+		this.cases = new Case[taille][taille];
+		
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
 				cases[i][j] = new Case(i, j);
 			}
 		}
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < this.flottes.length; i++) {
+			if (i == 2)
+				this.flottes[i] = new Bateau(6);
 			if (i == 0)
-				flottes[i] = new Bateau(3);
-			else if (i > 0)
-				flottes[i] = new Bateau(i + 1);
+				this.flottes[i] = new Bateau(3);
+			else if (i > 0 && i != 2)
+				this.flottes[i] = new Bateau(i + 1);
 		}
 	}
 	
@@ -34,11 +38,11 @@ public class Plateau {
 	
 	public void AfficherPlateau()
 	{
-		System.out.println("   0    1    2    3     X");
-		for(int i =0; i<4; i++)
+		System.out.println("   0    1    2    3    4    5    6    7    8    9    X");
+		for(int i =0; i<this.taille; i++)
 		{
 			System.out.print(i);
-			for (int j = 0; j<4;j++)
+			for (int j = 0; j<this.taille;j++)
 			{
 				if(cases[i][j].getEtatCase() == Case.VIDE)
 				{
@@ -57,35 +61,39 @@ public class Plateau {
 		System.out.println("Y");
 	}
 	
-	public boolean PlacerBateau(int x, int y, String sens, int taille){
+	public boolean PlacerBateau(int x, int y, Bateau bateau){
 		boolean placement = false;
 		
 		for (int k = 0; k < flottes.length; k++)
 		{
-			if(flottes[k].getTailleBat() == taille)
+			if(flottes[k].getNomBateau() == bateau.getNomBateau())
 			{
+				String nom = flottes[k].getNomBateau();
 				int caseLibre = 0;
-				for (int i = 0; i < taille; i++) {
-					if (flottes[k].getSensBateau().toUpperCase().startsWith("H")){
-						if (x + taille <= this.taille ) {
+				String sensBateau = bateau.getSensBateau();
+				String upperCase = sensBateau.toUpperCase();
+				
+				for (int i = 0; i < bateau.getTailleBat(); i++) {
+					if (upperCase.startsWith("H")){
+						if (x + bateau.getTailleBat() <= this.taille ) {
 							if (cases[y][x+i].getEtatCase() == Case.VIDE) {
 								caseLibre++;
 							}
 						} 
-					} else if (flottes[k].getSensBateau().toUpperCase().startsWith("V")) {
-						if (y + taille <= this.taille){
+					} else if (upperCase.startsWith("V")) {
+						if (y + bateau.getTailleBat() <= this.taille){
 							if (cases[y+i][x].getEtatCase() == Case.VIDE) {
 								caseLibre++;
 							}
 						} 
 					}
 				}
-				if (caseLibre == taille) {
+				if (caseLibre == bateau.getTailleBat()) {
 					placement = true;
 					System.out.println("Bateau bien placé");
 					
-					for (int i = 0; i < taille; i++) {
-						if (flottes[k].getSensBateau().equals("h")) {
+					for (int i = 0; i < bateau.getTailleBat(); i++) {
+						if (sensBateau.startsWith("h")) {
 							cases[y][x+i].setEtatCase(Case.OCCUPE);
 							flottes[k].setCase(i, cases[y][x+i]);
 						} else {

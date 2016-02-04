@@ -6,12 +6,19 @@ import org.junit.Test;
 
 public class PlateauTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
+	
+	@Test
+	public void testPlacerBateau()
+	{
+		Plateau p1 = new Plateau(10);
+		int i = 0;
+		String sens = "v";
+		for (Bateau bateau : p1.GetListeBateau()) {
+			bateau.setSensBateau(sens);
+			assertTrue(p1.PlacerBateau(i, 0, bateau));
+			i++;
+		}
+	
 	}
 
 }
