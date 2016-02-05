@@ -7,6 +7,8 @@ public class Plateau {
 	private Bateau flottes[] = new Bateau[5];
 	private boolean win = false;
 	private int nbBateauxCoule = 0;
+	private String nomJoueurEnnemie;
+	private String nomJoueur;
 
 	public Plateau(int taille) {
 		this.taille = taille;
@@ -28,6 +30,25 @@ public class Plateau {
 		}
 	}
 	
+	public void setNomJoueurEnnemie(String nom)
+	{
+		if(nom.startsWith("V"))
+			this.nomJoueurEnnemie = nom + " avez";
+		else{this.nomJoueurEnnemie = "Le " + nom + " a";}
+	}
+	
+	public void setNomJoueur(String nom)
+	{
+		if(nom.startsWith("V"))
+			this.nomJoueur = nom + " avez";
+		else{this.nomJoueur = "Le " + nom + " a";}
+	}
+	
+	public String getNomJoueur()
+	{
+		return this.nomJoueur;
+	}
+	
 	public boolean getPartieGagne()
 	{
 		return this.win;
@@ -43,19 +64,22 @@ public class Plateau {
 	
 	
 	
-	public void AfficherPlateau()
+	public void AfficherPlateau(int Ia)
 	{
-		System.out.println("   0    1    2    3    4    5    6    7    8    9    X");
+		System.out.println("    0    1    2    3    4    5    6    7    8    9    10    11    X");
 		for(int i =0; i<this.taille; i++)
 		{
-			System.out.print(i);
+			if(i < 10)
+			System.out.print(" "+i);
+			else{System.out.print(i);}
 			for (int j = 0; j<this.taille;j++)
 			{
 				if(cases[i][j].getEtatCase() == Case.VIDE)
 				{
 					System.out.print(" ~~~ ");
 				}else if(cases[i][j].getEtatCase() == Case.OCCUPE){
-					System.out.print(" Bat ");
+					if(Ia == 0){System.out.print(" Bat ");}
+					else{System.out.print(" ~~~ ");}
 				}else if(cases[i][j].getEtatCase() == Case.TOUCHE){
 					System.out.print("  X  ");
 				}else if(cases[i][j].getEtatCase() == Case.MANQUE){
@@ -97,7 +121,7 @@ public class Plateau {
 				}
 				if (caseLibre == bateau.getTailleBat()) {
 					placement = true;
-					System.out.println("Bateau bien placé");
+					//System.out.println("Bateau bien placé");
 					
 					for (int i = 0; i < bateau.getTailleBat(); i++) {
 						if (sensBateau.startsWith("h")) {
@@ -154,9 +178,13 @@ public class Plateau {
 			if(cases[y][x].getEtatCase() == Case.VIDE)
 			{
 				cases[y][x].setEtatCase(Case.MANQUE);
-				System.out.println("Vous avez manqué la cible");
+				System.out.println(this.nomJoueurEnnemie+" manqué la cible");
 				return tir = true;
 				
+			}else if(cases[y][x].getEtatCase() == Case.TOUCHE || cases[y][x].getEtatCase() == Case.MANQUE)
+			{
+				System.out.println(this.nomJoueurEnnemie + " déja tiré sur cette case");
+				return tir = false;
 			}
 			else if(cases[y][x].getEtatCase() == Case.OCCUPE)
 			{
@@ -167,7 +195,7 @@ public class Plateau {
 							bateau.bateauTouche();
 							if(bateau.estCoule())
 							{
-								System.out.println("Le bateau" + bateau.getNomBateau() + " est coulé");
+								System.out.println("Le " + bateau.getNomBateau() + " est coulé");
 								this.nbBateauxCoule += 1;
 							}
 						}
@@ -178,12 +206,7 @@ public class Plateau {
 					}
 				}
 				cases[y][x].setEtatCase(Case.TOUCHE);
-				System.out.println("Vous avez touché la cible");
-				return tir = true;
-			}
-			else if(cases[y][x].getEtatCase() == Case.TOUCHE || cases[y][x].getEtatCase() == Case.MANQUE)
-			{
-				System.out.println("Vous avez déja tiré sur cette case");
+				System.out.println(this.nomJoueurEnnemie+ " touché la cible");
 				return tir = true;
 			}
 			
@@ -193,9 +216,13 @@ public class Plateau {
 	
 	public void TirAleatoire()
 	{
+		boolean bontTir = false;
 		int x, y;
-		x =  nombreAleatoire();
-		y =  nombreAleatoire();		
-		Tir(x, y);
+		while (!bontTir){
+			x =  nombreAleatoire();
+			y =  nombreAleatoire();		
+			bontTir = Tir(x, y);
+			
+		}
 	}
 }
