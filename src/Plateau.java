@@ -30,6 +30,10 @@ public class Plateau {
 		}
 	}
 	
+	public int getTaillePlateau()
+	{
+		return this.taille;
+	}
 	public void setNomJoueurEnnemie(String nom)
 	{
 		if(nom.startsWith("V"))
@@ -66,7 +70,13 @@ public class Plateau {
 	
 	public void AfficherPlateau(int Ia)
 	{
-		System.out.println("    0    1    2    3    4    5    6    7    8    9    10    11    X");
+		for (int i = 0; i < this.taille; i++) {
+			if (i < 10)
+				System.out.print("    " + i);
+			else
+				System.out.print("   " + i);
+		}
+		System.out.println("    X");
 		for(int i =0; i<this.taille; i++)
 		{
 			if(i < 10)
@@ -195,7 +205,7 @@ public class Plateau {
 							bateau.bateauTouche();
 							if(bateau.estCoule())
 							{
-								System.out.println("Le " + bateau.getNomBateau() + " est coulé");
+								System.out.println("Le " + bateau.getNomBateau() + " est coulé que ");
 								this.nbBateauxCoule += 1;
 							}
 						}
@@ -214,15 +224,21 @@ public class Plateau {
 		return tir;
 	}
 	
-	public void TirAleatoire()
+	public boolean TirAleatoire()
 	{
+		boolean retour;
 		boolean bontTir = false;
-		int x, y;
+		int x = 0, y = 0;
 		while (!bontTir){
 			x =  nombreAleatoire();
 			y =  nombreAleatoire();		
 			bontTir = Tir(x, y);
 			
 		}
+		if (cases[y][x].getEtatCase() == 2)
+			retour = true;
+		else
+			retour = false;
+		return retour;
 	}
 }

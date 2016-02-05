@@ -25,6 +25,7 @@ public class PlateauTest {
 	public void testTir()
 	{
 		Plateau p1 = new Plateau(10);
+		p1.setNomJoueur("Player1");
 		int i = 0;
 		String sens = "v";
 		for (Bateau bateau : p1.GetListeBateau()) {

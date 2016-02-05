@@ -13,22 +13,41 @@ public class FenetreBataille /*extends JFrame*/{
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+//		String debug = System.getenv("DEBUG");
+//		
+//		if ("YES".equals(debug)) {
+//			
+//		}
+
+			System.out.println("Choix de la taille du Plateau : ");
+			int tailleP = sc.nextInt();
+			
+				
+		Plateau p1 = new Plateau(tailleP);
+		Plateau p2 = new Plateau(tailleP);
 		
+		initialisePlateau(p1, p2);		
 		
-		Plateau p1 = new Plateau(12);
-		Plateau p2 = new Plateau(12);
-		
+		initialisePlacementBateaux(sc, p1, p2);
+			
+		demandeDeTire(sc,p2, p1);
+			
+	}
+
+
+	private static void initialisePlateau(Plateau p1, Plateau p2) {
 		p2.setNomJoueurEnnemie("Vous");
 		p1.setNomJoueurEnnemie("joueur2 ");
 		
 		p2.setNomJoueur("joueur2");
 		p1.setNomJoueur("Vous");
-		
-		System.out.println("Le plateau que " + p1.getNomJoueur());
 		p1.AfficherPlateau(0);
-		
-		
-		System.out.println("Voulez vous commencer une partie sans paramétrage y/n : ");
+	}
+
+
+	private static void initialisePlacementBateaux(Scanner sc, Plateau p1, Plateau p2) {
+		System.out.println("Voulez vous commencer une partie sans choisir l'emplacement de vos bateaux y/n : ");
+		sc.nextLine();
 		String PartieRapide = sc.nextLine();
 		
 		if(PartieRapide.toUpperCase().startsWith("N"))
@@ -36,24 +55,30 @@ public class FenetreBataille /*extends JFrame*/{
 			demandePlacementBateau(sc, p1);			
 		}else{
 			p1.PlacerBateauAleatoire();
-			p1.AfficherPlateau(0);
 		}
+		
+		System.out.println("Le plateau que " + p1.getNomJoueur());
+		p1.AfficherPlateau(0);
+		
 			p2.PlacerBateauAleatoire();
 			
 			System.out.println("Le plateau que le " + p2.getNomJoueur());
-			p2.AfficherPlateau(0);
-			
-			demandeDeTire(sc,p2, p1);
-			
+			p2.AfficherPlateau(1);
 	}
 
 	
 	private static void demandeDeTire(Scanner sc, Plateau p2, Plateau p1) {
 		int decompteTire = 20;
+		boolean tirJoueur2Touche;
 		while (decompteTire>0) {
 			boolean bonTir = false;
 			while (!bonTir) {
 				
+				if(decompteTire == 15)
+				{
+					getJoker(sc, p2);
+					
+				}
 				System.out.println("Saisir les coordonnes de placement du tir: ");
 				System.out.println(" Saisir x : ");
 				int x = sc.nextInt();
@@ -62,13 +87,17 @@ public class FenetreBataille /*extends JFrame*/{
 				int y = sc.nextInt();
 				
 				bonTir = p2.Tir(x, y);
-				if(!bonTir)
+				if((x < 0 || x > p2.getTaillePlateau()) || (y < 0 || y > p2.getTaillePlateau()))
 				{
 					System.out.println("Vos coordonné de tire dépasse le tableau");
 				}				
 			}
-				p1.TirAleatoire();
-				p2.AfficherPlateau(1);
+			tirJoueur2Touche = p1.TirAleatoire();
+				if(tirJoueur2Touche){
+					System.out.println("Le plateau que " + p1.getNomJoueur());
+					p1.AfficherPlateau(0);
+				}
+			p2.AfficherPlateau(1);
 				
 			decompteTire--;
 			
@@ -77,7 +106,22 @@ public class FenetreBataille /*extends JFrame*/{
 	}
 
 
-	private static void verifWinner(Plateau p2, Plateau p1, int decompteTire) {
+	private static void getJoker(Scanner sc, Plateau p2) {
+
+		System.out.println(" Voulez vous utiliser un joker y/n :");
+		sc.nextLine();
+		String jok = sc.nextLine();
+		if(jok.toUpperCase().startsWith("Y"))
+		{
+			for (int i = 0; i < 5; i++) {
+				p2.TirAleatoire();
+			}
+			p2.AfficherPlateau(1);
+		}
+	}
+
+
+	public static void verifWinner(Plateau p2, Plateau p1, int decompteTire) {
 		int nbBatCouleJoueur1 = 0;
 		int nbBatCouleIa = 0;
 		
