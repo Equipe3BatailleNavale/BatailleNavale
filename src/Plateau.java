@@ -36,6 +36,13 @@ public class Plateau {
 		this.win = true;
 	}
 	
+	public Bateau[] GetListeBateau()
+	{
+		return flottes;
+	}
+	
+	
+	
 	public void AfficherPlateau()
 	{
 		System.out.println("   0    1    2    3    4    5    6    7    8    9    X");
@@ -46,7 +53,7 @@ public class Plateau {
 			{
 				if(cases[i][j].getEtatCase() == Case.VIDE)
 				{
-					System.out.print(" eau ");
+					System.out.print(" ~~~ ");
 				}else if(cases[i][j].getEtatCase() == Case.OCCUPE){
 					System.out.print(" Bat ");
 				}else if(cases[i][j].getEtatCase() == Case.TOUCHE){
@@ -117,8 +124,8 @@ public class Plateau {
 			boolean placement = false;
 			
 			while (!placement) {
-				x =  0 + (int)(Math.random() * ((9 - 0) + 1));
-				y= 0 + (int)(Math.random() * ((9 - 0) + 1));
+				x = nombreAleatoire();
+				y = nombreAleatoire();
 				sensOrdi = 0 + (int)(Math.random() * ((1 - 0) + 1));
 				
 				if (sensOrdi == 0)
@@ -134,20 +141,21 @@ public class Plateau {
 			}
 		}
 	}
-	
-	public Bateau[] GetListeBateau()
-	{
-		return flottes;
+
+	public int nombreAleatoire() {
+		return (int)(Math.random() * this.taille);
 	}
-	
-	public void Tir(int x, int y)
+	public boolean Tir(int x, int y)
 	{
+		boolean tir = false;
 		
 		if((x >= 0 && x < this.taille) && (y >= 0 && y < this.taille))
 		{
 			if(cases[y][x].getEtatCase() == Case.VIDE)
 			{
 				cases[y][x].setEtatCase(Case.MANQUE);
+				System.out.println("Vous avez manqué la cible");
+				return tir = true;
 				
 			}
 			else if(cases[y][x].getEtatCase() == Case.OCCUPE)
@@ -170,12 +178,24 @@ public class Plateau {
 					}
 				}
 				cases[y][x].setEtatCase(Case.TOUCHE);
+				System.out.println("Vous avez touché la cible");
+				return tir = true;
 			}
 			else if(cases[y][x].getEtatCase() == Case.TOUCHE || cases[y][x].getEtatCase() == Case.MANQUE)
 			{
 				System.out.println("Vous avez déja tiré sur cette case");
+				return tir = true;
 			}
 			
 		}
+		return tir;
+	}
+	
+	public void TirAleatoire()
+	{
+		int x, y;
+		x =  nombreAleatoire();
+		y =  nombreAleatoire();		
+		Tir(x, y);
 	}
 }

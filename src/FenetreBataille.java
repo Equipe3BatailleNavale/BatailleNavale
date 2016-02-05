@@ -53,48 +53,30 @@ public class FenetreBataille /*extends JFrame*/{
 		}
 		
 		while (!p1.getPartieGagne()) {
-			System.out.println("Saisir les coordonnes de placement du tir: ");
-			System.out.println(" Saisir x : ");
-			int x = sc.nextInt();
-
-			System.out.println(" Saisir y : ");
-			int y = sc.nextInt();
+			boolean bonTir = false;
+			while (!bonTir) {
+				
+				System.out.println("Saisir les coordonnes de placement du tir: ");
+				System.out.println(" Saisir x : ");
+				int x = sc.nextInt();
+	
+				System.out.println(" Saisir y : ");
+				int y = sc.nextInt();
+				
+				bonTir = p1.Tir(x, y);
+				if(!bonTir)
+				{
+					System.out.println("Vos coordonné de tire dépasse le tableau");
+				}
+				
+			}
 			
-			p1.Tir(x, y);
 			
 			p1.AfficherPlateau();
 			
 		}
 		System.out.println("La partie est terminer! Bien jouer vous avez gagné");
 	}
-		
-//        super();
-// 
-//        setSize(700, 300);
-//        setTitle("Grille de jeu");
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-// 
-//        Object[][] donnees = {
-//                {"vide", "vide", "vide"},
-//                {"Vide", "vide", "vide"},
-//                {"Vide", "vide", "vide"},
-//                
-//        };
-// 
-//        String[] entetes = {"A", "B", "C"};
-// 
-//        JTable tableau = new JTable(donnees, entetes);
-//        
-// 
-//        getContentPane().add(tableau.getTableHeader(), BorderLayout.NORTH);
-//        getContentPane().add(tableau, BorderLayout.CENTER);
-// 
-//        pack();
-//    }
-// 
-//    public static void main(String[] args) {
-//        new FenetreBataille().setVisible(true);
-//    }
 
 
 }
